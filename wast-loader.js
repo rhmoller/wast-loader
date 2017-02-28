@@ -1,6 +1,7 @@
 var wast2wasm = require("wast2wasm");
 
 module.exports = function(wast) {
+    this.cacheable();
     var callback = this.async();
 
     wast2wasm(wast, true).then(function(out) {
