@@ -5,7 +5,9 @@ module.exports = function(wast) {
     var callback = this.async();
 
     wast2wasm(wast, true).then(function(out) {
-        var bytes = [].slice.call(out.buffer);
-        callback(null, "module.exports = " + JSON.stringify(bytes) + ";");
+        var buffer = Buffer.from(out.buffer);
+        buffer[4] = 1; // patch the version number to 0x01
+        var hex = buffer.toString("hex");
+        callback(null, "module.exports = Buffer.from('" + hex + "', 'hex');");
     });
 };
