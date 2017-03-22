@@ -1,4 +1,4 @@
-Webpack loader for loading WebAssembly s-expressions from .wast files
+Webpack loader for loading WebAssembly s-expressions from .wat or .wast files
 
 The loader returns the compiled .wasm as a Buffer that can passed to 
 WebAssembly.compile() or WebAssembly.instantiate()
@@ -11,27 +11,31 @@ WebAssembly.compile() or WebAssembly.instantiate()
 
 In webpack.config.js
 
-    module: {
-        rules: [
-            { test: /\.wast$/, loader: "wast-loader", exclude: /node_modules/ }
-        ]
-    }
+```javascript
+module: {
+    rules: [
+        { test: /\.was?t$/, loader: "wast-loader", exclude: /node_modules/ }
+    ]
+}
+```
       
-Now you can write a .wast file such as
+Now you can write a .wat file such as
 
-    ;; exports function square() that multiplies the input number with itself
-    (module
-        (func (export "square") (param $i i32) (result i32)
-            get_local $i
-            get_local $i
-            i32.mul
-        )
+```lisp
+;; exports function square() that multiplies the input number with itself
+(module
+    (func (export "square") (param $i i32) (result i32)
+        get_local $i
+        get_local $i
+        i32.mul
     )
+)
+```
 
 And use it with
 
 ```javascript
-import square from "./square.wast";
+import square from "./square.wat";
     
 WebAssembly.instantiate(square)
     .then(result => {
