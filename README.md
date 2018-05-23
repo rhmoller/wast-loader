@@ -1,3 +1,9 @@
+I have handed the wast-loader package over to @xtuc
+
+Find the latest source here https://github.com/xtuc/webassemblyjs/tree/master/packages/wast-loader
+
+---
+
 Webpack loader for loading WebAssembly s-expressions from .wat or .wast files
 
 The loader returns the compiled .wasm as a Buffer that can passed to 
